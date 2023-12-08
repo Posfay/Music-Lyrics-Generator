@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyrics Generator</title>
+    <link rel="stylesheet" type="text/css" href="/static/css.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Music Lyrics Generator</h1>
+
+        {% if not api_key %}
+            <div>
+                <form action="/save" method="post">
+                    <label for="api-key">API Key:</label>
+                    <input type="text" name="api-key" required>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        {% endif %}
+
+        <div>
+            <form action="/generate" method="post">
+                <label for="topic">Topic:</label>
+                <input type="text" name="topic">
+
+                <label for="genre">Genre:</label>
+                <select name="genre" required>
+                    <option value="rap">Rap</option>
+                    <option value="country">Country</option>
+                    <option value="hip-hop">Hip-Hop</option>
+                    <option value="pop">Pop</option>
+                    <option value="rock">Rock</option>
+                    <option value="metal">Metal</option>
+                    <option value="jazz">Jazz</option>
+                    <option value="blues">Blues</option>
+                    <option value="reggae">Reggae</option>
+                    <option value="christian">Christian</option>
+                </select>
+
+                <label for="length">Length:</label>
+                <input type="number" name="length" required>
+
+                <label for="rhyme">Rhyme:</label>
+                <select name="rhyme" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <button type="submit">Generate Lyrics</button>
+            </form>
+        </div>
+
+        <div>
+            {% if generated_lyrics %}
+                <h2>Generated Lyrics:</h2>
+                <p class="generated-lyrics">{{ generated_lyrics }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
